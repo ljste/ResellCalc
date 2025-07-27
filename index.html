@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reseller Profit Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-container">
+        <h1>Reseller Hub</h1>
+
+        <div id="dashboard" class="dashboard-container">
+            <div class="stat-card">
+                <span class="label">Total Profit (All Time)</span>
+                <span id="stat-total-profit" class="value">$0.00</span>
+            </div>
+            <div class="stat-card">
+                <span class="label">Total Sales (All Time)</span>
+                <span id="stat-total-sales" class="value">$0.00</span>
+            </div>
+            <div class="stat-card">
+                <span class="label">Average Margin</span>
+                <span id="stat-avg-margin" class="value">0%</span>
+            </div>
+        </div>
+
+        <div class="calculator-container">
+            <div class="mode-switcher">
+                <button id="mode-profit" class="mode-btn active">Profit Calculator</button>
+                <button id="mode-pricer" class="mode-btn">Pricing Calculator</button>
+            </div>
+
+            <div id="profit-calculator-section">
+                <form id="profit-form">
+                    <div class="form-group">
+                        <label for="platform">Platform</label>
+                        <select id="platform" name="platform">
+                            <option value="ebay">eBay</option>
+                            <option value="etsy">Etsy</option>
+                            <option value="depop">Depop</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sale-price">Item Sale Price</label>
+                        <input type="number" id="sale-price" placeholder="e.g., 25.00" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="item-cost">Cost of Item</label>
+                        <input type="number" id="item-cost" placeholder="e.g., 5.00" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="shipping-cost">Actual Shipping Cost</label>
+                        <input type="number" id="shipping-cost" placeholder="e.g., 4.50" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="shipping-charged">Shipping Charged to Buyer</label>
+                        <input type="number" id="shipping-charged" placeholder="e.g., 4.50" step="0.01" value="0" required>
+                    </div>
+                    <button type="submit">Calculate Profit</button>
+                </form>
+                <div id="profit-results-container" class="results-container"></div>
+            </div>
+
+            <div id="pricer-calculator-section" class="hidden">
+                 <form id="pricer-form">
+                    <div class="form-group">
+                        <label for="pricer-platform">Platform</label>
+                        <select id="pricer-platform" name="pricer-platform">
+                            <option value="ebay">eBay</option>
+                            <option value="etsy">Etsy</option>
+                            <option value="depop">Depop</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pricer-item-cost">Cost of Item</label>
+                        <input type="number" id="pricer-item-cost" placeholder="e.g., 5.00" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pricer-shipping-cost">Actual Shipping Cost</label>
+                        <input type="number" id="pricer-shipping-cost" placeholder="e.g., 4.50" step="0.01" required>
+                    </div>
+                     <div class="form-group">
+                        <label for="pricer-desired-profit">Desired Net Profit ($)</label>
+                        <input type="number" id="pricer-desired-profit" placeholder="e.g., 20.00" step="0.01" required>
+                    </div>
+                    <button type="submit">Calculate Price</button>
+                </form>
+                <div id="pricer-results-container" class="results-container"></div>
+            </div>
+        </div>
+
+        <div id="logbook-container">
+            <div class="logbook-header">
+                <h2>Sales Logbook</h2>
+                <button id="clear-log-btn">Clear Log</button>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Platform</th>
+                            <th>Sale Price</th>
+                            <th>Profit</th>
+                            <th>Margin</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logbook-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
