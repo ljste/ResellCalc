@@ -16,15 +16,47 @@ body {
     max-width: 700px;
 }
 
-h1 {
-    text-align: center;
-    font-size: 2.25rem;
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 2.25rem;
+    margin: 0;
+}
+
+.settings-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.settings-container label {
+    font-size: 0.9rem;
+    color: #606770;
+    margin: 0;
+}
+
+.settings-container select {
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid #dddfe2;
+    background-color: #fff;
+    font-size: 0.9rem;
 }
 
 h2 {
     margin: 0;
     font-size: 1.25rem;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #dddfe2;
+    margin: 1.5rem 0;
 }
 
 .dashboard-container {
@@ -93,12 +125,54 @@ h2 {
     font-weight: 700;
 }
 
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
 .form-group {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.form-group-inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 1rem;
+    background-color: #f7f8fa;
+    border-radius: 6px;
+    margin: -0.5rem 0 1rem 0;
+}
+
+.form-group-inline label {
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+.form-group-inline input[type="checkbox"] {
+    width: auto;
+    height: 16px;
+    margin: 0;
+}
+
+.form-group-inline select {
+    width: auto;
+    padding: 0.5rem 0.75rem;
+}
+
+.form-note {
+    font-size: 0.85rem;
+    color: #606770;
+    text-align: center;
+    background-color: #f7f8fa;
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin-top: 0;
 }
 
 label {
-    display: block;
+    display: inline-block;
     margin-bottom: 0.5rem;
     font-weight: bold;
     font-size: 0.9rem;
@@ -113,7 +187,7 @@ input, select {
     box-sizing: border-box;
 }
 
-button {
+button[type="submit"] {
     width: 100%;
     padding: 0.85rem;
     background-color: #1877f2;
@@ -124,9 +198,10 @@ button {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.2s;
+    margin-top: 1rem;
 }
 
-button:hover {
+button[type="submit"]:hover {
     background-color: #166fe5;
 }
 
@@ -135,7 +210,6 @@ button:hover {
     padding: 1rem;
     background-color: #f7f8fa;
     border-radius: 8px;
-    text-align: center;
 }
 
 .hidden {
@@ -162,6 +236,9 @@ button:hover {
     padding: 0.5rem 1rem;
     width: auto;
     font-size: 0.9rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
 }
 
 #clear-log-btn:hover {
@@ -181,6 +258,7 @@ th, td {
     padding: 0.75rem;
     text-align: left;
     border-bottom: 1px solid #dddfe2;
+    white-space: nowrap;
 }
 
 th {
@@ -213,4 +291,74 @@ tbody tr:nth-child(even) {
 
 .loss {
     color: #e02c4d;
+}
+
+.footer-note {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: #606770;
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+    margin-left: 4px;
+    background-color: #e4e6eb;
+    color: #606770;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    cursor: help;
+    font-weight: bold;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 220px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -110px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-weight: normal;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+@media (max-width: 600px) {
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
 }

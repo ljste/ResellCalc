@@ -11,7 +11,19 @@
 </head>
 <body>
     <div class="main-container">
-        <h1>Reseller Hub</h1>
+        <div class="header-container">
+            <h1>Reseller Hub</h1>
+            <div class="settings-container">
+                <label for="currency-select">Currency</label>
+                <select id="currency-select">
+                    <option value="USD">USD ($)</option>
+                    <option value="GBP">GBP (£)</option>
+                    <option value="EUR">EUR (€)</option>
+                    <option value="CAD">CAD ($)</option>
+                    <option value="AUD">AUD ($)</option>
+                </select>
+            </div>
+        </div>
 
         <div id="dashboard" class="dashboard-container">
             <div class="stat-card">
@@ -36,30 +48,118 @@
 
             <div id="profit-calculator-section">
                 <form id="profit-form">
-                    <div class="form-group">
-                        <label for="platform">Platform</label>
-                        <select id="platform" name="platform">
-                            <option value="ebay">eBay</option>
-                            <option value="etsy">Etsy</option>
-                            <option value="depop">Depop</option>
-                        </select>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="platform">Platform</label>
+                            <select id="platform" name="platform">
+                                <option value="ebay">eBay</option>
+                                <option value="etsy">Etsy</option>
+                                <option value="depop">Depop</option>
+                            </select>
+                        </div>
+                        <div class="form-group hidden" id="ebay-category-group">
+                            <label for="ebay-category">eBay Category</label>
+                            <select id="ebay-category" name="ebay-category">
+                                <option value="most_categories">Most Categories</option>
+                                <option value="books_media">Books, Movies, Music</option>
+                                <option value="handbags">Handbags</option>
+                                <option value="athletic_shoes">Athletic Shoes</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="sale-price">Item Sale Price</label>
-                        <input type="number" id="sale-price" placeholder="e.g., 25.00" step="0.01" required>
+
+                    <div id="etsy-options-group" class="hidden">
+                        <div class="form-group-inline">
+                            <input type="checkbox" id="etsy-offsite-ad" name="etsy-offsite-ad">
+                            <label for="etsy-offsite-ad">Sale from an Offsite Ad?
+                                 <span class="tooltip-container">
+                                    (?)
+                                    <span class="tooltip-text">Check if the sale was attributed to Etsy's Offsite Ads. This adds a 12-15% fee (capped at $100) on top of other fees.</span>
+                                </span>
+                            </label>
+                            <select id="etsy-ad-rate" name="etsy-ad-rate">
+                                <option value="15">15% Fee</option>
+                                <option value="12">12% Fee</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="item-cost">Cost of Item</label>
-                        <input type="number" id="item-cost" placeholder="e.g., 5.00" step="0.01" required>
+
+                    <div id="depop-options-group" class="hidden">
+                        <div class="form-group-inline">
+                            <input type="checkbox" id="depop-boosted-listing" name="depop-boosted-listing">
+                            <label for="depop-boosted-listing">Boosted Listing? (8% fee)
+                                 <span class="tooltip-container">
+                                    (?)
+                                    <span class="tooltip-text">Check if you used Depop's "Boosted Listings" feature for this item. This adds an 8% fee on the item price and shipping.</span>
+                                </span>
+                            </label>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="shipping-cost">Actual Shipping Cost</label>
-                        <input type="number" id="shipping-cost" placeholder="e.g., 4.50" step="0.01" required>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="sale-price">Item Sale Price</label>
+                            <input type="number" id="sale-price" placeholder="25.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="shipping-charged">Shipping Charged
+                                <span class="tooltip-container">
+                                    (?)
+                                    <span class="tooltip-text">The amount the buyer paid you for shipping.</span>
+                                </span>
+                            </label>
+                            <input type="number" id="shipping-charged" placeholder="4.50" step="0.01" value="0" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="shipping-charged">Shipping Charged to Buyer</label>
-                        <input type="number" id="shipping-charged" placeholder="e.g., 4.50" step="0.01" value="0" required>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="item-cost">Cost of Item</label>
+                            <input type="number" id="item-cost" placeholder="5.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="shipping-cost">Shipping Cost
+                                <span class="tooltip-container">
+                                    (?)
+                                    <span class="tooltip-text">The actual amount you paid for the shipping label.</span>
+                                </span>
+                            </label>
+                            <input type="number" id="shipping-cost" placeholder="4.50" step="0.01" required>
+                        </div>
                     </div>
+                    
+                    <hr>
+                    
+                    <div class="form-grid">
+                         <div class="form-group">
+                            <label for="sales-tax">Sales Tax / VAT
+                                <span class="tooltip-container">
+                                    (?)
+                                    <span class="tooltip-text">The sales tax or VAT the platform collected from the buyer. This is used by some platforms to calculate their final fee.</span>
+                                </span>
+                            </label>
+                            <input type="number" id="sales-tax" placeholder="2.25" step="0.01" value="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="promoted-listing">Promoted Listing (%)
+                                 <span class="tooltip-container">
+                                    (?)
+                                    <span class="tooltip-text">Enter the ad rate if you used Promoted Listings. For a 2.5% rate, enter 2.5.</span>
+                                </span>
+                            </label>
+                            <input type="number" id="promoted-listing" placeholder="e.g., 2.5" step="0.1" value="0" required>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="other-fees">Other Fees
+                             <span class="tooltip-container">
+                                (?)
+                                <span class="tooltip-text">Use for any other costs, like packaging materials or currency conversion fees.</span>
+                            </span>
+                        </label>
+                        <input type="number" id="other-fees" placeholder="1.00" step="0.01" value="0" required>
+                    </div>
+
                     <button type="submit">Calculate Profit</button>
                 </form>
                 <div id="profit-results-container" class="results-container"></div>
@@ -67,25 +167,30 @@
 
             <div id="pricer-calculator-section" class="hidden">
                  <form id="pricer-form">
-                    <div class="form-group">
-                        <label for="pricer-platform">Platform</label>
-                        <select id="pricer-platform" name="pricer-platform">
-                            <option value="ebay">eBay</option>
-                            <option value="etsy">Etsy</option>
-                            <option value="depop">Depop</option>
-                        </select>
+                    <p class="form-note">Calculates the item price you need to set to achieve a target profit. Does not include "Promoted Listing" or "Other" fees.</p>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="pricer-platform">Platform</label>
+                            <select id="pricer-platform" name="pricer-platform">
+                                <option value="ebay">eBay</option>
+                                <option value="etsy">Etsy</option>
+                                <option value="depop">Depop</option>
+                            </select>
+                        </div>
+                         <div class="form-group">
+                            <label for="pricer-desired-profit">Desired Net Profit</label>
+                            <input type="number" id="pricer-desired-profit" placeholder="e.g., 20.00" step="0.01" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="pricer-item-cost">Cost of Item</label>
-                        <input type="number" id="pricer-item-cost" placeholder="e.g., 5.00" step="0.01" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="pricer-shipping-cost">Actual Shipping Cost</label>
-                        <input type="number" id="pricer-shipping-cost" placeholder="e.g., 4.50" step="0.01" required>
-                    </div>
-                     <div class="form-group">
-                        <label for="pricer-desired-profit">Desired Net Profit ($)</label>
-                        <input type="number" id="pricer-desired-profit" placeholder="e.g., 20.00" step="0.01" required>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="pricer-item-cost">Cost of Item</label>
+                            <input type="number" id="pricer-item-cost" placeholder="e.g., 5.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pricer-shipping-cost">Net Shipping Cost</label>
+                            <input type="number" id="pricer-shipping-cost" placeholder="e.g., 4.50" step="0.01" required>
+                        </div>
                     </div>
                     <button type="submit">Calculate Price</button>
                 </form>
@@ -114,6 +219,9 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+        <div class="footer-note">
+            <p>Fee data last updated July 2025 based on public information. Please verify with official platform documentation for critical calculations.</p>
         </div>
     </div>
     <script src="script.js"></script>
